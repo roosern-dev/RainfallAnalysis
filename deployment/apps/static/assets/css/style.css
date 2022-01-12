@@ -1,0 +1,31 @@
+  .left1 {
+  width: 14%;
+  }
+
+  .left2 {
+  width: 14%;
+  }
+  
+  .left3 {
+  width: 14%;
+  }
+
+  .middle {
+  width: 14%;
+  }
+
+  .right1 {
+  width: 14%;
+  }
+  
+  .right2 {
+  width: 14%;
+  }
+
+  .right3 {
+  width: 14%;
+  }
+
+  #grad1 {
+  background-image: linear-gradient(to right, rgba(237, 245, 248, 0.623), rgb(146, 183, 238));
+}

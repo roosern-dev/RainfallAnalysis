@@ -1,5 +1,7 @@
 # [Rainfall Analysis Dashboard]
 
+## Rainfall Analysis Dashboard Description 
+
 <br />
 
 ## ✨ Quick Start in `Docker`
@@ -27,6 +29,7 @@ Visit `http://localhost:8000` in your browser. The app should be up & running.
 $ # Get the code
 $ git clone https://github.com/roosern-dev/RainfallAnalysis.git
 $ cd RainfallAnalysis
+$ cd deployment
 $
 $ # Virtualenv modules installation (Unix based systems)
 $ virtualenv env
