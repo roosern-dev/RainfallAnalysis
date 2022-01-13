@@ -8,13 +8,29 @@ from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse, HttpResponseRedirect
 from django.template import loader
 from django.urls import reverse
+from django.shortcuts import render
 
+#from deployment.settings import MEDIA_ROOT
+#from django.views.generic import TemplateView
+
+import numpy as np
+import pandas as pd
+#import matplotlib as pl
+#pl.use('Agg') #Agg is a non-interactive backend, only save to files
+#import matplotlib.pyplot as plt
+#import seaborn as sb
 
 @login_required(login_url="/login/")
 def index(request):
-    context = {'segment': 'index'}
+    context = {'segment': 'index', 'labels1':statesList, 'data1':rainfallList, 'labels2':daysList, 'data2':rainfallAcrossWeekList }
 
     html_template = loader.get_template('home/index.html')
+    return HttpResponse(html_template.render(context, request))
+
+def state(request):
+    context = {'segment': 'index', 'labels1':statesList, 'data1':rainfallList, 'labels2':daysList, 'data2':rainfallAcrossWeekList }
+
+    html_template = loader.get_template('home/state.html')
     return HttpResponse(html_template.render(context, request))
 
 
@@ -42,3 +58,38 @@ def pages(request):
     except:
         html_template = loader.get_template('home/page-500.html')
         return HttpResponse(html_template.render(context, request))
+
+
+rainfaillAvgPath = r"C:\Users\huimunte\OneDrive - Intel Corporation\Desktop\AppliedDataScience\Assignment\RainfallAnalysis\deployment\media\rainFallavg_bystate_Data.csv"
+DFRainfallByState = pd.read_csv(rainfaillAvgPath)
+RainFallByStateDict = {}
+statesList = []
+rainfallList = []
+for state in DFRainfallByState['state']:
+    #RainFallByStateDict[state] = DFRainfallByState[DFRainfallByState['state'] == state]['rainfall'].values[0]
+    statesList.append(state)
+    rainfallList.append(DFRainfallByState[DFRainfallByState['state'] == state]['rainfall'].values[0])
+
+rainfallAcrossWeekPath = r"C:\Users\huimunte\OneDrive - Intel Corporation\Desktop\AppliedDataScience\Assignment\RainfallAnalysis\deployment\media\rainFall_acrossweek_Data.csv"
+DFDayTrend = pd.read_csv(rainfallAcrossWeekPath)
+#rainfallAcrossWeek = {}
+rainfallAcrossWeekList = []
+daysList = []
+groupedRainfallByState = DFDayTrend.groupby('state')
+'''
+for state in groupedRainfallByState.groups:
+    weeklyRainfallData = []
+    #print(groupedRainfallByState.get_group(state))
+    stateData = groupedRainfallByState.get_group(state)
+    for date in stateData.index:
+        weeklyRainfallData.append(stateData.loc[date]['rainfall'])
+    rainfallAcrossWeek[state] = weeklyRainfallData
+'''
+
+state = "Johor"
+stateData = groupedRainfallByState.get_group(state)
+for date in stateData.index:
+    #weeklyRainfallData.append(stateData.loc[date]['rainfall'])
+    rainfallAcrossWeekList.append(stateData.loc[date]['rainfall'])
+    daysList.append(stateData.loc[date]['date'])
+
