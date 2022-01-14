@@ -10,15 +10,9 @@ from django.template import loader
 from django.urls import reverse
 from django.shortcuts import render, redirect
 
-#from deployment.settings import MEDIA_ROOT
-#from django.views.generic import TemplateView
-
 import numpy as np
 import pandas as pd
-#import matplotlib as pl
-#pl.use('Agg') #Agg is a non-interactive backend, only save to files
-#import matplotlib.pyplot as plt
-#import seaborn as sb
+import os 
 
 @login_required(login_url="/login/")
 def index(request):
@@ -106,43 +100,7 @@ def pages(request):
 
 
 #get the data upon loading
-
-# rainfaillAvgPath = r"C:\Users\ryeoh\Project\RainFallAnalysis\data\rainFallavg_bystate_Data.csv"
-# DFRainfallByState = pd.read_csv(rainfaillAvgPath)
-# RainFallByStateDict = {}
-# statesList = []
-# rainfallList = []
-# for state in DFRainfallByState['state']:
-#     #RainFallByStateDict[state] = DFRainfallByState[DFRainfallByState['state'] == state]['rainfall'].values[0]
-#     statesList.append(state)
-#     rainfallList.append(DFRainfallByState[DFRainfallByState['state'] == state]['rainfall'].values[0])
-
-# rainfallAcrossWeekPath = r"C:\Users\ryeoh\Project\RainFallAnalysis\data\rainFall_acrossweek_Data.csv"
-# DFDayTrend = pd.read_csv(rainfallAcrossWeekPath)
-# #rainfallAcrossWeek = {}
-# rainfallAcrossWeekList = []
-# daysList = []
-# groupedRainfallByState = DFDayTrend.groupby('state')
-
-# for state in groupedRainfallByState.groups:
-#     weeklyRainfallData = []
-#     #print(groupedRainfallByState.get_group(state))
-#     stateData = groupedRainfallByState.get_group(state)
-#     for date in stateData.index:
-#         weeklyRainfallData.append(stateData.loc[date]['rainfall'])
-#     rainfallAcrossWeek[state] = weeklyRainfallData
-
-
-# state = "Johor"
-# stateData = groupedRainfallByState.get_group(state)
-# for date in stateData.index:
-#     #weeklyRainfallData.append(stateData.loc[date]['rainfall'])
-#     rainfallAcrossWeekList.append(stateData.loc[date]['rainfall'])
-#     daysList.append(stateData.loc[date]['date'])
-
-
-
-filePath = r"C:\Users\ryeoh\Project\RainFallAnalysis\data\rainFallData.csv"
+filePath = r"../../RainFallAnalysis/data/rainFallData.csv"
 rainfallDF = pd.read_csv(filePath)
 
 #remove negative numbers from rainfall
@@ -165,18 +123,12 @@ for state in DFRainfallByState['state']:
 #get rainfall across days
 DFDayTrend = rainfallDF.groupby(['state', 'date'])['rainfall'].mean().reset_index()
 DFDayTrend.set_index('date', inplace=True)
-
-
 DFCountryAverageDays = rainfallDF.groupby(['date'])['rainfall'].mean().reset_index()
 #DFCountryAverageDays.set_index('date')
 rainfallAcrossWeekList = [round(DFCountryAverageDays.loc[date]['rainfall'],2) for date in DFCountryAverageDays.index]
 daysList = [ str(DFCountryAverageDays.iloc[date]['date']) for date in DFCountryAverageDays.index]
 datesRainedCountry = list(zip(daysList,rainfallAcrossWeekList))
-
 groupedRainfallByState = DFDayTrend.groupby('state')
-
 
 #get rainfall by districts
 DFDistrict = rainfallDF.groupby(['state', 'district']).mean().reset_index()
-
-#statesDistrictRainfall[state] = districtRainfall

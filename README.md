@@ -1,6 +1,6 @@
 # [Rainfall Analysis Dashboard]
 
-## Rainfall Analysis Dashboard Description 
+## Rainfall is one of the climatological data which is widely analyzed for a long time. The rainfall analysis dashboard focuses on the analysis of rainfalldata in Malaysia. In rainfall analysis dashboard can be used to study the random fluctuations in the weekly rainfall data across the districts for each state and to study weather there is climate changes in the past week. As we know, the heavy raining will lead to flash floods.From the changes of the rainfall pattern, we can get the warning for floods and can help to reduce the impacts on you and your family. 
 
 <br />
 
