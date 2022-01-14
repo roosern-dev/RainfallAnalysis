@@ -73,7 +73,7 @@ def states(request):
                 'datesRained' : datesRained
                  }
 
-    html_template = loader.get_template('home/state.html')
+    html_template = loader.get_template('home/index.html')
     return HttpResponse(html_template.render(context, request))
 
 
