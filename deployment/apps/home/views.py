@@ -39,8 +39,17 @@ def states(request):
     if(state == ''):
         return redirect('home')
 
+    stateData = groupedRainfallByState.get_group(state)
+    rainfallList = []
+    daysList = []
+    for date in stateData.index:
+        #weeklyRainfallData.append(stateData.loc[date]['rainfall'])
+        rainfallList.append(stateData.loc[date]['rainfall'])
+        daysList.append(date)
     context = {'selectedState':state,
-                'states' :statesList
+                'states' :statesList,
+                'rainfallAcrossDaysList': rainfallList,
+                'dates': daysList
                  }
 
     html_template = loader.get_template('home/state.html')
@@ -76,9 +85,52 @@ def pages(request):
 
 
 #get the data upon loading
-rainfaillAvgPath = r"C:\Users\ryeoh\Project\RainFallAnalysis\data\rainFallavg_bystate_Data.csv"
-DFRainfallByState = pd.read_csv(rainfaillAvgPath)
-RainFallByStateDict = {}
+
+# rainfaillAvgPath = r"C:\Users\ryeoh\Project\RainFallAnalysis\data\rainFallavg_bystate_Data.csv"
+# DFRainfallByState = pd.read_csv(rainfaillAvgPath)
+# RainFallByStateDict = {}
+# statesList = []
+# rainfallList = []
+# for state in DFRainfallByState['state']:
+#     #RainFallByStateDict[state] = DFRainfallByState[DFRainfallByState['state'] == state]['rainfall'].values[0]
+#     statesList.append(state)
+#     rainfallList.append(DFRainfallByState[DFRainfallByState['state'] == state]['rainfall'].values[0])
+
+# rainfallAcrossWeekPath = r"C:\Users\ryeoh\Project\RainFallAnalysis\data\rainFall_acrossweek_Data.csv"
+# DFDayTrend = pd.read_csv(rainfallAcrossWeekPath)
+# #rainfallAcrossWeek = {}
+# rainfallAcrossWeekList = []
+# daysList = []
+# groupedRainfallByState = DFDayTrend.groupby('state')
+
+# for state in groupedRainfallByState.groups:
+#     weeklyRainfallData = []
+#     #print(groupedRainfallByState.get_group(state))
+#     stateData = groupedRainfallByState.get_group(state)
+#     for date in stateData.index:
+#         weeklyRainfallData.append(stateData.loc[date]['rainfall'])
+#     rainfallAcrossWeek[state] = weeklyRainfallData
+
+
+# state = "Johor"
+# stateData = groupedRainfallByState.get_group(state)
+# for date in stateData.index:
+#     #weeklyRainfallData.append(stateData.loc[date]['rainfall'])
+#     rainfallAcrossWeekList.append(stateData.loc[date]['rainfall'])
+#     daysList.append(stateData.loc[date]['date'])
+
+
+
+filePath = r"C:\Users\ryeoh\Project\RainFallAnalysis\data\rainFallData.csv"
+rainfallDF = pd.read_csv(filePath)
+
+#remove negative numbers from rainfall
+rainfallDF['rainfall'] = rainfallDF['rainfall'].replace('-', 0)
+rainfallDF['rainfall'] = rainfallDF['rainfall'].astype(float)
+rainfallDF['rainfall'].loc[rainfallDF['rainfall']<0] = 0
+
+DFRainfallByState = rainfallDF.groupby('state')['rainfall'].mean().reset_index()
+
 statesList = []
 rainfallList = []
 for state in DFRainfallByState['state']:
@@ -86,26 +138,10 @@ for state in DFRainfallByState['state']:
     statesList.append(state)
     rainfallList.append(DFRainfallByState[DFRainfallByState['state'] == state]['rainfall'].values[0])
 
-rainfallAcrossWeekPath = r"C:\Users\ryeoh\Project\RainFallAnalysis\data\rainFall_acrossweek_Data.csv"
-DFDayTrend = pd.read_csv(rainfallAcrossWeekPath)
-#rainfallAcrossWeek = {}
+DFDayTrend = rainfallDF.groupby(['state', 'date'])['rainfall'].mean().reset_index()
+DFDayTrend.set_index('date', inplace=True)
+
 rainfallAcrossWeekList = []
 daysList = []
+
 groupedRainfallByState = DFDayTrend.groupby('state')
-'''
-for state in groupedRainfallByState.groups:
-    weeklyRainfallData = []
-    #print(groupedRainfallByState.get_group(state))
-    stateData = groupedRainfallByState.get_group(state)
-    for date in stateData.index:
-        weeklyRainfallData.append(stateData.loc[date]['rainfall'])
-    rainfallAcrossWeek[state] = weeklyRainfallData
-'''
-
-state = "Johor"
-stateData = groupedRainfallByState.get_group(state)
-for date in stateData.index:
-    #weeklyRainfallData.append(stateData.loc[date]['rainfall'])
-    rainfallAcrossWeekList.append(stateData.loc[date]['rainfall'])
-    daysList.append(stateData.loc[date]['date'])
-
