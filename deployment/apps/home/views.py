@@ -42,10 +42,12 @@ def states(request):
     stateData = groupedRainfallByState.get_group(state)
     rainfallList = []
     daysList = []
+    datesRained = []
     for date in stateData.index:
         #weeklyRainfallData.append(stateData.loc[date]['rainfall'])
         rainfallList.append(stateData.loc[date]['rainfall'])
         daysList.append(str(date))
+        datesRained.append([str(date),round(stateData.loc[date]['rainfall'],2)])
 
     districts = DFDistrict[DFDistrict['state'] == state]['district'].unique()
     districtRainfall = {}
@@ -61,7 +63,8 @@ def states(request):
                 'dates': daysList,
                 'districts': list(districts),
                 'numberOfDistricts':len(districts),
-                'rainfallAcrossDistricts': rainfallAcrossDistrict 
+                'rainfallAcrossDistricts': rainfallAcrossDistrict,
+                'datesRained' : datesRained
                  }
 
     html_template = loader.get_template('home/state.html')

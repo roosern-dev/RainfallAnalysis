@@ -97,7 +97,28 @@
                     
                     
                     <div class="row">
-                      <div class="column left1">
+                        <div class="d-flex flex-row justify-content-around">
+                        {% for dateRain in datesRained %}
+                        
+                            <div class="item">
+                                <p><span> {{dateRain.0}}</span></p>
+        
+                                <p style="font-size: 40px;">{{dateRain.1}}</p>
+                                <div>
+                                    {% if dateRain.1 < 0.1 %}
+                                    <i class="fas fa-sun" style="font-size:48px;"></i>
+                                    {% elif dateRain.1 < 1 %}
+                                    <i class="fas fa-cloud-rain" style="font-size:48px;"></i>
+                                    {% else %}
+                                    <i class="fas fa-cloud-showers-heavy" style="font-size:48px;"></i>
+                                    {% endif %}
+                                
+                                </div>
+                            </div>
+                        
+                        {% endfor %}
+                        </div>
+                      <!--div class="column left1">
                         <p><span id='date-time1'></span></p>
                         <script>
                           var today = new Date();
@@ -319,7 +340,7 @@
                           <i class="fas fa-cloud-meatball" style="font-size:48px;"></i>
                        
                       </div>
-                      </div>
+                      </div-->
                     </div>
                     <!-- <a class="text-body text-sm font-weight-bold mb-0 icon-move-right mt-auto" href="javascript:;">
                       Read More
