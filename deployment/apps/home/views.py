@@ -23,11 +23,14 @@ import pandas as pd
 @login_required(login_url="/login/")
 def index(request):
     context = {'segment': 'index', 
-                'labels1':statesList, 
-                'data1':rainfallList, 
-                'labels2':daysList, 
-                'data2':rainfallAcrossWeekList,
-                'states':statesList
+                'selectedState':'',
+                'level':"country",
+                'districts':statesList, 
+                'rainfallAcrossDistricts':rainfallList, 
+                'dates':daysList, 
+                'rainfallAcrossDaysList':rainfallAcrossWeekList,
+                'states':statesList,
+                'datesRained' : []
                 }
 
     html_template = loader.get_template('home/index.html')
@@ -160,7 +163,10 @@ for state in DFRainfallByState['state']:
 DFDayTrend = rainfallDF.groupby(['state', 'date'])['rainfall'].mean().reset_index()
 DFDayTrend.set_index('date', inplace=True)
 
-rainfallAcrossWeekList = []
+
+DFCountryAverageDays = rainfallDF.groupby(['date'])['rainfall'].mean().reset_index()
+DFCountryAverageDays.set_index('date')
+rainfallAcrossWeekList = [DFCountryAverageDays.loc[date] for date in DFCountryAverageDays.index]
 daysList = []
 
 groupedRainfallByState = DFDayTrend.groupby('state')
