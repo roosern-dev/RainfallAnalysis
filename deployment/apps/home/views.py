@@ -45,7 +45,7 @@ def states(request):
     for date in stateData.index:
         #weeklyRainfallData.append(stateData.loc[date]['rainfall'])
         rainfallList.append(stateData.loc[date]['rainfall'])
-        daysList.append(date)
+        daysList.append(str(date))
     context = {'selectedState':state,
                 'states' :statesList,
                 'rainfallAcrossDaysList': rainfallList,
