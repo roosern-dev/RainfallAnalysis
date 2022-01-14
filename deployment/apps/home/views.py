@@ -46,10 +46,22 @@ def states(request):
         #weeklyRainfallData.append(stateData.loc[date]['rainfall'])
         rainfallList.append(stateData.loc[date]['rainfall'])
         daysList.append(str(date))
+
+    districts = DFDistrict[DFDistrict['state'] == state]['district'].unique()
+    districtRainfall = {}
+    districtList = []
+    rainfallAcrossDistrict = []
+    for district in districts:
+        rainfallAcrossDistrict.append(DFDistrict[DFDistrict['district'] == district]['rainfall'].values[0])
+    #districtRainfall[district] = DFDistrict[DFDistrict['district'] == district]['rainfall'].values[0]
+    
     context = {'selectedState':state,
                 'states' :statesList,
                 'rainfallAcrossDaysList': rainfallList,
-                'dates': daysList
+                'dates': daysList,
+                'districts': list(districts),
+                'numberOfDistricts':len(districts),
+                'rainfallAcrossDistricts': rainfallAcrossDistrict 
                  }
 
     html_template = loader.get_template('home/state.html')
@@ -129,6 +141,8 @@ rainfallDF['rainfall'] = rainfallDF['rainfall'].replace('-', 0)
 rainfallDF['rainfall'] = rainfallDF['rainfall'].astype(float)
 rainfallDF['rainfall'].loc[rainfallDF['rainfall']<0] = 0
 
+
+#get rainfall by state
 DFRainfallByState = rainfallDF.groupby('state')['rainfall'].mean().reset_index()
 
 statesList = []
@@ -138,6 +152,8 @@ for state in DFRainfallByState['state']:
     statesList.append(state)
     rainfallList.append(DFRainfallByState[DFRainfallByState['state'] == state]['rainfall'].values[0])
 
+
+#get rainfall across days
 DFDayTrend = rainfallDF.groupby(['state', 'date'])['rainfall'].mean().reset_index()
 DFDayTrend.set_index('date', inplace=True)
 
@@ -145,3 +161,9 @@ rainfallAcrossWeekList = []
 daysList = []
 
 groupedRainfallByState = DFDayTrend.groupby('state')
+
+
+#get rainfall by districts
+DFDistrict = rainfallDF.groupby(['state', 'district']).mean().reset_index()
+
+#statesDistrictRainfall[state] = districtRainfall
