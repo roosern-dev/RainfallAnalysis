@@ -26,11 +26,12 @@ def index(request):
                 'selectedState':'',
                 'level':"country",
                 'districts':statesList, 
+                'numberOfDistricts': len(statesList),
                 'rainfallAcrossDistricts':rainfallList, 
                 'dates':daysList, 
                 'rainfallAcrossDaysList':rainfallAcrossWeekList,
                 'states':statesList,
-                'datesRained' : []
+                'datesRained' : datesRainedCountry
                 }
 
     html_template = loader.get_template('home/index.html')
@@ -62,8 +63,10 @@ def states(request):
     
     context = {'selectedState':state,
                 'states' :statesList,
+                #'rainfallAcrossDaysList': [1,2,3],
                 'rainfallAcrossDaysList': rainfallList,
                 'dates': daysList,
+                #'dates' : [1,2,3],
                 'districts': list(districts),
                 'numberOfDistricts':len(districts),
                 'rainfallAcrossDistricts': rainfallAcrossDistrict,
@@ -165,9 +168,10 @@ DFDayTrend.set_index('date', inplace=True)
 
 
 DFCountryAverageDays = rainfallDF.groupby(['date'])['rainfall'].mean().reset_index()
-DFCountryAverageDays.set_index('date')
-rainfallAcrossWeekList = [DFCountryAverageDays.loc[date] for date in DFCountryAverageDays.index]
-daysList = []
+#DFCountryAverageDays.set_index('date')
+rainfallAcrossWeekList = [round(DFCountryAverageDays.loc[date]['rainfall'],2) for date in DFCountryAverageDays.index]
+daysList = [ str(DFCountryAverageDays.iloc[date]['date']) for date in DFCountryAverageDays.index]
+datesRainedCountry = list(zip(daysList,rainfallAcrossWeekList))
 
 groupedRainfallByState = DFDayTrend.groupby('state')
 
