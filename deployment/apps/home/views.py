@@ -39,7 +39,9 @@ def states(request):
     if(state == ''):
         return redirect('home')
 
-    context = {'state':state }
+    context = {'selectedState':state,
+                'states' :statesList
+                 }
 
     html_template = loader.get_template('home/state.html')
     return HttpResponse(html_template.render(context, request))
