@@ -132,23 +132,10 @@
                       <div class="page-container"> 
                         <div>
                             <select name="skill_dropdown" id="skill_dropdown" style="height: 30px;" onchange="changeChart">
-                                <option value="">Please select state</option>
-                                <option value="Johor">Johor</option>
-                                <option value="Kedah">Kedah</option>
-                                <option value="Kelantan">Kelantan</option>
-                                <option value="Melaka">Melaka</option>
-                                <option value="Sembilan">Negeri Sembilan</option>
-                                <option value="Pahang">Pahang</option>
-                                <option value="Perak">Perak</option>
-                                <option value="Perlis">Perlis</option>
-                                <option value="Pinang">Pulau Pinang</option>
-                                <option value="Sabah">Sabah</option>
-                                <option value="Sarawak">Sarawak</option>
-                                <option value="Selangor">Selangor</option>
-                                <option value="Terangganu">Terangganu</option>
-                                <option value="KL">Kuala Lumpur</option>
-                                <option value="Labuan">Labuan</option>
-                                <option value="Putrajaya">Putrajaya</option>
+                              <option value='' selected='selected'>'Please select state</option>
+                              {%for state in states%}
+                                <option value={{state}}>{{state}}</option>
+                              {% endfor %}}
                             </select>
                         </div>	
                         
