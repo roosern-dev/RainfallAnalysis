@@ -6,43 +6,61 @@
 {% block stylesheets %}{% endblock stylesheets %}
 
 {% block content %}
-
+  <head>
+    <link href="/static/assets/css/style.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script type="text/javascript">
+      $(document).ready(function () {
+          $("#skill_dropdown").change(function () {
+              var inputVal = $(this).val();
+              var eleBox = $("." + inputVal);
+              $(".skill").hide();
+              $(eleBox).show();
+          });
+      });
+  </script>
+    </head>
     <div class="container-fluid py-4">
       <div class="row">
-        <div class="col-xl-3 col-sm-6 mb-xl-0 mb-4">
+        <div class="col-xl-10 col-sm-6 mb-xl-0 mb-4">
           <div class="card">
             <div class="card-body p-3">
               <div class="row">
                 <div class="col-8">
                   <div class="numbers">
-                    <p class="text-sm mb-0 text-capitalize font-weight-bold">Today's Date</p>
+                    
+                        
+                    <p class="text-sm mb-0 text-capitalize font-weight-bold"><p style="font-size: 25px;">Today's Date</p></p>
                     <p><span id='date-time'></span>.</p>
-                    <script>
-                      var dt = new Date();
-                      document.getElementById('date-time').innerHTML=dt;
+                    <script>   
+                      var myDate = new Date();
+                      document.getElementById('date-time').innerHTML=myDate;
                     </script>
-                    <h5 class="font-weight-bolder mb-0">
+                    <!-- <h5 class="font-weight-bolder mb-0">
                       $53,000
                       <span class="text-success text-sm font-weight-bolder">+55%</span>
-                    </h5>
+                    </h5> -->
                   </div>
                 </div>
-                <div class="col-4 text-end">
-                  <div class="icon icon-shape bg-gradient-primary shadow text-center border-radius-md">
-                    <i class="ni ni-time-alarm text-lg opacity-10" aria-hidden="true"></i>
+                
+                <div class="col-lg-4 text-end">
+                  <div class="icon icon-shape icon-lg bg-gradient-primary shadow text-center border-radius-md">
+                    <i class="ni ni-time-alarm opacity-10" style="font-size:48px;" aria-hidden="true"></i>
                   </div>
                 </div>
               </div>
             </div>
           </div>
         </div>
-        <div class="col-xl-3 col-sm-6 mb-xl-0 mb-4">
+        <!-- <div class="col-xl-3 col-sm-6 mb-xl-0 mb-4">
           <div class="card">
             <div class="card-body p-3">
               <div class="row">
                 <div class="col-8">
                   <div class="numbers">
                     <p class="text-sm mb-0 text-capitalize font-weight-bold">Today's Users</p>
+                    
                     <h5 class="font-weight-bolder mb-0">
                       2,300
                       <span class="text-success text-sm font-weight-bolder">+3%</span>
@@ -101,37 +119,307 @@
               </div>
             </div>
           </div>
-        </div>
+        </div> -->
       </div>
-      <div class="row mt-4">
-        <div class="col-lg-7 mb-lg-0 mb-4">
-          <div class="card">
-            <div class="card-body p-3">
-              <div class="row">
-                <div class="col-lg-6">
-                  <div class="d-flex flex-column h-100">
-                    <p class="mb-1 pt-2 text-bold">Built by developers</p>
-                    <h5 class="font-weight-bolder">Soft UI Dashboard</h5>
-                    <p class="mb-5">From colors, cards, typography to complex elements, you will find the full documentation.</p>
-                    <a class="text-body text-sm font-weight-bold mb-0 icon-move-right mt-auto" href="javascript:;">
-                      Read More
-                      <i class="fas fa-arrow-right text-sm ms-1" aria-hidden="true"></i>
-                    </a>
-                  </div>
-                </div>
-                <div class="col-lg-5 ms-auto text-center mt-5 mt-lg-0">
-                  <div class="bg-gradient-primary border-radius-lg h-100">
-                    <img src="/static/assets/img/shapes/waves-white.svg" class="position-absolute h-100 w-50 top-0 d-lg-block d-none" alt="waves">
-                    <div class="position-relative d-flex align-items-center justify-content-center h-100">
-                      <img class="w-100 position-relative z-index-2 pt-4" src="/static/assets/img/illustrations/rocket-white.png" alt="rocket">
+      <div class="container-fluid py-4">
+        <div class="row">
+          <div class="col-xl-3 col-sm-6 mb-xl-0 mb-4">
+            <div class="card">
+              <div class="card-body p-3">
+                <div class="row">
+                  <div class="col-8">
+                    <div class="numbers">     
+                      <div class="page-container"> 
+                        <div>
+                            <select name="skill_dropdown" id="skill_dropdown" style="height: 30px;" onchange="changeChart">
+                                <option value="">Please select state</option>
+                                <option value="Johor">Johor</option>
+                                <option value="Kedah">Kedah</option>
+                                <option value="Kelantan">Kelantan</option>
+                                <option value="Melaka">Melaka</option>
+                                <option value="Sembilan">Negeri Sembilan</option>
+                                <option value="Pahang">Pahang</option>
+                                <option value="Perak">Perak</option>
+                                <option value="Perlis">Perlis</option>
+                                <option value="Pinang">Pulau Pinang</option>
+                                <option value="Sabah">Sabah</option>
+                                <option value="Sarawak">Sarawak</option>
+                                <option value="Selangor">Selangor</option>
+                                <option value="Terangganu">Terangganu</option>
+                                <option value="KL">Kuala Lumpur</option>
+                                <option value="Labuan">Labuan</option>
+                                <option value="Putrajaya">Putrajaya</option>
+                            </select>
+                        </div>	
+                        
+                    </div>
+                      
                     </div>
                   </div>
                 </div>
               </div>
             </div>
           </div>
+         
+      <div class="Johor skill">
+      <div class="row mt-4">
+        
+        <div class="col-lg-15 mb-lg-0 mb-4">
+          <div id="grad1" class="card" style="background-color: #b2b2b2;">
+            
+            <div class="card-body p-3" >
+              <div class="row">
+                <div class="col-lg-15">
+                  <div class="d-flex flex-column h-100">
+                    <p class="mb-1 pt-2 text-bold"; style="font-size: 30px;">State : Johor</p>
+                    <h5 class="font-weight-bolder"; style="font-size: 40px;"></p>Clouds and Sun</h5>
+                    
+                    
+                    <div class="row">
+                      <div class="column left1">
+                        <p><span id='date-time1'></span></p>
+                        <script>
+                          var today = new Date();
+                          var dd = today.getDate();
+
+                          var mm = today.getMonth()+1; 
+                          var yyyy = today.getFullYear();
+                          if(dd<10) 
+                          {
+                            dd='0'+dd;
+                          } 
+
+                          if(mm<10) 
+                          {
+                            mm='0'+mm;
+                          } 
+
+                          today1 = dd+'-'+mm+'-'+yyyy;
+                          document.getElementById('date-time1').innerHTML=today1;
+                        </script>
+                        <p style="font-size: 40px;">34°C</p>
+                        <div class="col-4 text-end">
+                          
+                            <i class="fas fa-cloud-sun" style="font-size:48px;"></i>
+                         
+                        </div>
+                      </div>
+
+                      <div class="column left2">
+                        <p><span id='date-time2'></span></p>
+                        <script>
+                          var today = new Date();
+                          var dt = new Date(new Date(today).getTime() + 60 * 60 * 24 * 1000);
+                          var dd = dt.getDate();
+
+                          var mm = dt.getMonth()+1; 
+                          var yyyy = dt.getFullYear();
+                          if(dd<10) 
+                          {
+                            dd='0'+dd;
+                          } 
+
+                          if(mm<10) 
+                          {
+                            mm='0'+mm;
+                          } 
+
+                          dt1 = dd+'-'+mm+'-'+yyyy;
+                          document.getElementById('date-time2').innerHTML=dt1;
+                        </script>
+                        <p style="font-size: 40px;">32°C</p>
+                        <div class="col-4 text-end">
+                          
+                          <i class="fas fa-cloud-meatball" style="font-size:48px;"></i>
+                       
+                      </div>
+                      </div>
+
+                      <div class="column left3">
+                        <p><span id='date-time3'></span></p>
+                        <script>
+                          var today = new Date();
+                          var dt = new Date(new Date(today).getTime() + 60 * 60 * 24 * 1000);
+                          var dt1 = new Date(new Date(dt).getTime() + 60 * 60 * 24 * 1000);
+                          var dd = dt1.getDate();
+
+                          var mm = dt1.getMonth()+1; 
+                          var yyyy = dt1.getFullYear();
+                          if(dd<10) 
+                          {
+                            dd='0'+dd;
+                          } 
+
+                          if(mm<10) 
+                          {
+                            mm='0'+mm;
+                          } 
+
+                          dt1 = dd+'-'+mm+'-'+yyyy;
+                          document.getElementById('date-time3').innerHTML=dt1;
+                        </script>
+                        <p style="font-size: 40px;">33°C</p>
+                        <div class="col-4 text-end">
+                          
+                          <i class="fas fa-cloud-sun-rain" style="font-size:48px;"></i>
+                       
+                      </div>
+                      </div>
+
+                      <div class="column middle">
+                        <p><span id='date-time4'></span></p>
+                        <script>
+                          var today = new Date();
+                          var dt = new Date(new Date(today).getTime() + 60 * 60 * 24 * 1000);
+                          var dt1 = new Date(new Date(dt).getTime() + 60 * 60 * 24 * 1000);
+                          var dt2 = new Date(new Date(dt1).getTime() + 60 * 60 * 24 * 1000);
+                          var dd = dt2.getDate();
+
+                          var mm = dt2.getMonth()+1; 
+                          var yyyy = dt2.getFullYear();
+                          if(dd<10) 
+                          {
+                            dd='0'+dd;
+                          } 
+
+                          if(mm<10) 
+                          {
+                            mm='0'+mm;
+                          } 
+
+                          dt2 = dd+'-'+mm+'-'+yyyy;
+                          document.getElementById('date-time4').innerHTML=dt2;
+                        </script>
+                        <p style="font-size: 40px;">32°C</p>
+                        <div class="col-4 text-end">
+                          
+                          <i class="fas fa-sun" style="font-size:48px;"></i>
+                       
+                      </div>
+                      </div>
+
+                      <div class="column right1">
+                        <p><span id='date-time5'></span></p>
+                        <script>
+                          var today = new Date();
+                          var dt = new Date(new Date(today).getTime() + 60 * 60 * 24 * 1000);
+                          var dt1 = new Date(new Date(dt).getTime() + 60 * 60 * 24 * 1000);
+                          var dt2 = new Date(new Date(dt1).getTime() + 60 * 60 * 24 * 1000);
+                          var dt3 = new Date(new Date(dt2).getTime() + 60 * 60 * 24 * 1000);
+                          var dd = dt3.getDate();
+
+                          var mm = dt3.getMonth()+1; 
+                          var yyyy = dt3.getFullYear();
+                          if(dd<10) 
+                          {
+                            dd='0'+dd;
+                          } 
+
+                          if(mm<10) 
+                          {
+                            mm='0'+mm;
+                          } 
+
+                          dt3 = dd+'-'+mm+'-'+yyyy;
+                          document.getElementById('date-time5').innerHTML=dt3;
+                        </script>
+                        <p style="font-size: 40px;">35°C</p>
+                        <div class="col-4 text-end">
+                          
+                          <i class="fas fa-poo-storm" style="font-size:48px;"></i>
+                       
+                      </div>
+                        </div>
+
+                      <div class="column right1">
+                        <p><span id='date-time6'></span></p>
+                        <script>
+                          var today = new Date();
+                          var dt = new Date(new Date(today).getTime() + 60 * 60 * 24 * 1000);
+                          var dt1 = new Date(new Date(dt).getTime() + 60 * 60 * 24 * 1000);
+                          var dt2 = new Date(new Date(dt1).getTime() + 60 * 60 * 24 * 1000);
+                          var dt3 = new Date(new Date(dt2).getTime() + 60 * 60 * 24 * 1000);
+                          var dt4 = new Date(new Date(dt3).getTime() + 60 * 60 * 24 * 1000);
+                          var dd = dt4.getDate();
+
+                          var mm = dt4.getMonth()+1; 
+                          var yyyy = dt4.getFullYear();
+                          if(dd<10) 
+                          {
+                            dd='0'+dd;
+                          } 
+
+                          if(mm<10) 
+                          {
+                            mm='0'+mm;
+                          } 
+
+                          dt4 = dd+'-'+mm+'-'+yyyy;
+                          document.getElementById('date-time6').innerHTML=dt4;
+                        </script>
+                        <p style="font-size: 40px;">31°C</p>
+                        <div class="col-4 text-end">
+                          
+                          <i class="fas fa-cloud-showers-heavy" style="font-size:48px;"></i>
+                       
+                      </div>
+                      </div>
+
+                      <div class="column right1">
+                        <p><span id='date-time7'></span></p>
+                        <script>
+                          var today = new Date();
+                          var dt = new Date(new Date(today).getTime() + 60 * 60 * 24 * 1000);
+                          var dt1 = new Date(new Date(dt).getTime() + 60 * 60 * 24 * 1000);
+                          var dt2 = new Date(new Date(dt1).getTime() + 60 * 60 * 24 * 1000);
+                          var dt3 = new Date(new Date(dt2).getTime() + 60 * 60 * 24 * 1000);
+                          var dt4 = new Date(new Date(dt3).getTime() + 60 * 60 * 24 * 1000);
+                          var dt5 = new Date(new Date(dt4).getTime() + 60 * 60 * 24 * 1000);
+                          var dd = dt5.getDate();
+
+                          var mm = dt5.getMonth()+1; 
+                          var yyyy = dt5.getFullYear();
+                          if(dd<10) 
+                          {
+                            dd='0'+dd;
+                          } 
+
+                          if(mm<10) 
+                          {
+                            mm='0'+mm;
+                          } 
+
+                          dt5 = dd+'-'+mm+'-'+yyyy;
+                          document.getElementById('date-time7').innerHTML=dt5;
+                        </script>
+                        <p style="font-size: 40px;">34°C</p>
+                        <div class="col-4 text-end">
+                          
+                          <i class="fas fa-cloud-meatball" style="font-size:48px;"></i>
+                       
+                      </div>
+                      </div>
+                    </div>
+                    <!-- <a class="text-body text-sm font-weight-bold mb-0 icon-move-right mt-auto" href="javascript:;">
+                      Read More
+                      <i class="fas fa-arrow-right text-sm ms-1" aria-hidden="true"></i>
+                    </a> -->
+                  </div>
+                </div>
+                <!-- <div class="col-lg-5 ms-auto text-center mt-5 mt-lg-0">
+                  <div class="bg-gradient-primary border-radius-lg h-100">
+                    <img src="/static/assets/img/shapes/waves-white.svg" class="position-absolute h-100 w-50 top-0 d-lg-block d-none" alt="waves">
+                    <div class="position-relative d-flex align-items-center justify-content-center h-100">
+                      <img class="w-100 position-relative z-index-2 pt-4" src="/static/assets/img/illustrations/rocket-white.png" alt="rocket">
+                    </div>
+                  </div>
+                </div> -->
+              </div>
+            </div>
+          </div>
         </div>
-        <div class="col-lg-5">
+      </div>
+        <!-- <div class="col-lg-5">
           <div class="card h-100 p-3">
             <div class="overflow-hidden position-relative border-radius-lg bg-cover h-100" style="background-image: url('/static/assets/img/ivancik.jpg');">
               <span class="mask bg-gradient-dark"></span>
@@ -145,8 +433,8 @@
               </div>
             </div>
           </div>
-        </div>
-      </div>
+        </div> -->
+      </div> 
       <div class="row mt-4">
         <div class="col-lg-5 mb-lg-0 mb-4">
           <div class="card z-index-2">
@@ -281,7 +569,7 @@
           </div>
         </div>
       </div>
-      <div class="row my-4">
+      <!-- <div class="row my-4">
         <div class="col-lg-8 col-md-6 mb-md-0 mb-4">
           <div class="card">
             <div class="card-header pb-0">
@@ -572,7 +860,7 @@
                     <i class="ni ni-bell-55 text-success text-gradient"></i>
                   </span>
                   <div class="timeline-content">
-                    <h6 class="text-dark text-sm font-weight-bold mb-0">$2400, Design changes</h6>
+                    <h6 class="text-dark text-sm font-weight-bold mb-0 font-size=40px">$2400, Design changes</h6>
                     <p class="text-secondary font-weight-bold text-xs mt-1 mb-0">22 DEC 7:20 PM</p>
                   </div>
                 </div>
@@ -625,7 +913,7 @@
             </div>
           </div>
         </div>
-      </div>
+      </div> -->
 
       {% include "includes/footer.html" %}
 
@@ -637,20 +925,93 @@
 {% block javascripts %}
 
   <script>
-    var ctx = document.getElementById("chart-bars").getContext("2d");
+    function changeChart(state){
+      var allData = {{allData}};
+      var stateData = allData[state];
+      var ctx = document.getElementById("chart-bars").getContext("2d");
 
     new Chart(ctx, {
       type: "bar",
       data: {
-        labels: ["Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
+        //labels: ["Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
+        labels: {{labels1|safe}},
         datasets: [{
-          label: "Sales",
+          label: "RainFall",
           tension: 0.4,
           borderWidth: 0,
           borderRadius: 4,
           borderSkipped: false,
           backgroundColor: "#fff",
-          data: [450, 200, 100, 220, 500, 100, 400, 230, 500],
+          data: {{data1|safe}},
+          //data: [450, 200, 100, 220, 500, 100, 400, 230, 500],
+          maxBarThickness: 6
+        }, ],
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+          legend: {
+            display: false,
+          }
+        },
+        interaction: {
+          intersect: false,
+          mode: 'index',
+        },
+        scales: {
+          y: {
+            grid: {
+              drawBorder: false,
+              display: false,
+              drawOnChartArea: false,
+              drawTicks: false,
+            },
+            ticks: {
+              suggestedMin: 0,
+              suggestedMax: 500,
+              beginAtZero: true,
+              padding: 15,
+              font: {
+                size: 14,
+                family: "Open Sans",
+                style: 'normal',
+                lineHeight: 2
+              },
+              color: "#fff"
+            },
+          },
+          x: {
+            grid: {
+              drawBorder: false,
+              display: false,
+              drawOnChartArea: false,
+              drawTicks: false
+            },
+            ticks: {
+              display: false
+            },
+          },
+        },
+      },
+    });
+    }
+    var ctx = document.getElementById("chart-bars").getContext("2d");
+
+    new Chart(ctx, {
+      type: "bar",
+      data: {
+        //labels: ["Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
+        labels: {{labels1|safe}},
+        datasets: [{
+          label: "RainFall",
+          tension: 0.4,
+          borderWidth: 0,
+          borderRadius: 4,
+          borderSkipped: false,
+          backgroundColor: "#fff",
+          data: {{data1|safe}},
+          //data: [450, 200, 100, 220, 500, 100, 400, 230, 500],
           maxBarThickness: 6
         }, ],
       },
@@ -706,13 +1067,13 @@
 
     var ctx2 = document.getElementById("chart-line").getContext("2d");
 
-    var gradientStroke1 = ctx2.createLinearGradient(0, 230, 0, 50);
+    var gradientStroke1 = ctx2.createLinearGradient(0, 1, 0, 5);
 
     gradientStroke1.addColorStop(1, 'rgba(203,12,159,0.2)');
     gradientStroke1.addColorStop(0.2, 'rgba(72,72,176,0.0)');
     gradientStroke1.addColorStop(0, 'rgba(203,12,159,0)'); //purple colors
 
-    var gradientStroke2 = ctx2.createLinearGradient(0, 230, 0, 50);
+    var gradientStroke2 = ctx2.createLinearGradient(0, 1, 0, 5);
 
     gradientStroke2.addColorStop(1, 'rgba(20,23,39,0.2)');
     gradientStroke2.addColorStop(0.2, 'rgba(72,72,176,0.0)');
@@ -721,7 +1082,8 @@
     new Chart(ctx2, {
       type: "line",
       data: {
-        labels: ["Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
+        labels: {{labels2|safe}},
+        // labels: ["Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
         datasets: [{
             label: "Mobile apps",
             tension: 0.4,
@@ -731,22 +1093,24 @@
             borderWidth: 3,
             backgroundColor: gradientStroke1,
             fill: true,
-            data: [50, 40, 300, 220, 500, 250, 400, 230, 500],
+            data: {{data2|safe}},
+            //data: [50, 40, 300, 220, 500, 250, 400, 230, 500],
             maxBarThickness: 6
 
-          },
-          {
-            label: "Websites",
-            tension: 0.4,
-            borderWidth: 0,
-            pointRadius: 0,
-            borderColor: "#3A416F",
-            borderWidth: 3,
-            backgroundColor: gradientStroke2,
-            fill: true,
-            data: [30, 90, 40, 140, 290, 290, 340, 230, 400],
-            maxBarThickness: 6
-          },
+          }
+          // {
+          //   label: "Websites",
+          //   tension: 0.4,
+          //   borderWidth: 0,
+          //   pointRadius: 0,
+          //   borderColor: "#3A416F",
+          //   borderWidth: 3,
+          //   backgroundColor: gradientStroke2,
+          //   fill: true,
+          //   //data: [50, 40, 300, 220, 500, 250, 400, 230, 500],
+          //   //data: {{data2|safe}},
+          //   maxBarThickness: 6
+          // },
         ],
       },
       options: {
